@@ -12,4 +12,10 @@
     <property name="now" value="CURRENT_TIMESTAMP" dbms="h2"/>
     <property name="now" value="CURRENT_TIMESTAMP" dbms="derby"/>
 
+    <!-- Create -->
+    <include file="/db/changelog/users/create/users.xml"/>
+
+    <!-- Save -->
+    <include file="/db/changelog/users/save/users.xml"/>
+
 </databaseChangeLog>
