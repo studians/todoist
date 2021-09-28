@@ -1,2 +1,3 @@
-id,username,email,password
-1,"studians","studians.todoist@github.com","1234"
+id,username,email,password,role
+1,"studians","studians.todoist@github.com","$2a$10$OMMBhqar7eWC33m8q1.Yt.ZGem6hhKhPWh6C31uatcITd1JLoYWDm","ROLE_ADMIN"
+2,"test","test@test.test","$2a$10$OMMBhqar7eWC33m8q1.Yt.ZGem6hhKhPWh6C31uatcITd1JLoYWDm","ROLE_USER"
