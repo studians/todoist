@@ -1,0 +1,27 @@
+.field-container {
+    padding-bottom: 0.75em;
+}
+
+* > label {
+    display: block;
+    padding-bottom: 0.25em;
+}
+
+* > input {
+    width: 100%;
+    border-radius: 0.3em;
+    border-width: 1px;
+    border-color: #ACA9BB;
+}
+
+.button-container {
+    padding-top: 0.5em;
+}
+
+* > button {
+    width: 100%;
+    border-radius: 0.3em;
+    border-width: 0px;
+    background: #db4c4f;
+    height: 2.5em;
+}
