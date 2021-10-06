@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import dotenv from "dotenv";
 import axios from "axios";
+import {useHistory} from "react-router-dom";
 
 import './LoginPage.css';
 
@@ -13,16 +14,20 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const handlePasswordChange = (e) => setPassword(e.target.value);
 
+    const history = useHistory();
+
     function login() {
         const data = {username: username, password: password};
-        axios.post(process.env.REACT_APP_URI + "/login", JSON.stringify(data), {
+        axios.post(process.env.REACT_APP_URI + "/authenticate", JSON.stringify(data), {
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(response => {
-            console.log("response.data.accessToken: " + response.data);
-            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data;
+            console.log("response.data.token: " + response.data.token);
+            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+            history.push('/');
         }).catch(e => {
+            console.log(e);
             console.log("login failed!");
         });
     }
