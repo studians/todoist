@@ -15,9 +15,13 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.userEntity = userEntity;
     }
 
+    public long getUserId() {
+        return userEntity.getId();
+    }
+
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority(userEntity.getRole()));
+    public String getUsername() {
+        return userEntity.getUsername();
     }
 
     @Override
@@ -26,8 +30,8 @@ public class UserDetails implements org.springframework.security.core.userdetail
     }
 
     @Override
-    public String getUsername() {
-        return userEntity.getUsername();
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority(userEntity.getRole()));
     }
 
     @Override

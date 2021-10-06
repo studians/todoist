@@ -23,8 +23,9 @@ function LoginPage() {
                 "Content-Type": "application/json"
             }
         }).then(response => {
-            console.log("response.data.token: " + response.data.token);
-            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+            console.log("response.data.accessToken: " + response.data.accessToken);
+            console.log("response.data.refreshToken: " + response.data.refreshToken);
+            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.accessToken;
             history.push('/');
         }).catch(e => {
             console.log(e);

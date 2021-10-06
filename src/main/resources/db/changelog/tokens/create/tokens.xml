@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="todoist" id="create-tokens-0000">
+        <createTable tableName="tokens">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="refresh_token" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp without time zone" defaultValueComputed="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp without time zone" defaultValueComputed="${now}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="todoist" id="create-tokens-0001">
+        <createIndex tableName="tokens" indexName="index_tokens_01">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex tableName="tokens" indexName="index_tokens_02">
+            <column name="refresh_token"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

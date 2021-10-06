@@ -17,7 +17,20 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+    public enum TokenType {
+        ACCESS_TOKEN(1000 * 60 * 60),               // 1 hour
+        REFRESH_TOKEN(1000 * 60 * 60 * 24 * 7 * 2); // 1 week
+
+        private long expirationTime;
+
+        TokenType(long expirationTime) {
+            this.expirationTime = expirationTime;
+        }
+
+        public long getExpirationTime() {
+            return expirationTime;
+        }
+    }
 
     @Value("${jwt.secret}")
     private String secret;
@@ -46,16 +59,20 @@ public class JwtTokenUtil {
         return !expiredToken(token);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return doGenerateToken(new HashMap<String, Object>(), userDetails.getUsername());
+    public String generateAccessToken(UserDetails userDetails) {
+        return generateToken(new HashMap<String, Object>(), userDetails.getUsername(), TokenType.ACCESS_TOKEN);
     }
 
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
+    public String generateRefreshToken(UserDetails userDetails) {
+        return generateToken(new HashMap<String, Object>(), userDetails.getUsername(), TokenType.REFRESH_TOKEN);
+    }
+
+    private String generateToken(Map<String, Object> claims, String subject, TokenType tokenType) {
         return Jwts.builder()
                    .setClaims(claims)
                    .setSubject(subject)
-                   .setIssuedAt(new Date())
-                   .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+                   .setIssuedAt(new Date(System.currentTimeMillis()))
+                   .setExpiration(new Date(System.currentTimeMillis() + tokenType.getExpirationTime()))
                    .signWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS512)
                    .compact();
     }

@@ -2,14 +2,21 @@ package org.silentsoft.todoist.model;
 
 public class JwtResponse {
 
-    private String token;
+    private String accessToken;
 
-    public JwtResponse(String token) {
-        this.token = token;
+    private String refreshToken;
+
+    public JwtResponse(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
     }
 
-    public String getToken() {
-        return this.token;
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
 }
