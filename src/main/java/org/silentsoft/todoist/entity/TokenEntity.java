@@ -22,6 +22,8 @@ public class TokenEntity {
 
     private String refreshToken;
 
+    private String device;
+
     private Timestamp createdAt;
 
     private Timestamp updatedAt;

@@ -17,6 +17,7 @@
             <column name="refresh_token" type="varchar(512)">
                 <constraints nullable="false"/>
             </column>
+            <column name="device" type="varchar(512)"/>
             <column name="created_at" type="timestamp without time zone" defaultValueComputed="${now}">
                 <constraints nullable="false"/>
             </column>

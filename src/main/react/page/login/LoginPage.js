@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import dotenv from "dotenv";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
+import Bowser from "bowser";
 
 import './LoginPage.css';
 
@@ -17,7 +18,10 @@ function LoginPage() {
     const history = useHistory();
 
     function login() {
-        const data = {username: username, password: password};
+        const bowser = Bowser.getParser(window.navigator.userAgent);
+        const device = `${bowser.getOS().name} ${bowser.getOSVersion()} (${bowser.getBrowser().name} ${bowser.getBrowserVersion()})`;
+
+        const data = {username: username, password: password, device: device};
         axios.post(process.env.REACT_APP_URI + "/authenticate", JSON.stringify(data), {
             headers: {
                 "Content-Type": "application/json"

@@ -49,6 +49,7 @@ public class JwtAuthenticationController {
             TokenEntity tokenEntity = new TokenEntity();
             tokenEntity.setUserId(userDetails.getUserId());
             tokenEntity.setRefreshToken(refreshToken);
+            tokenEntity.setDevice(jwtRequest.getDevice());
             tokenEntity.setCreatedAt(timestamp);
             tokenEntity.setUpdatedAt(timestamp);
 

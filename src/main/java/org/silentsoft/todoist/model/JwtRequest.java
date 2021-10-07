@@ -4,13 +4,7 @@ public class JwtRequest {
 
     private String username;
     private String password;
-
-    public JwtRequest() { }
-
-    public JwtRequest(String username, String password) {
-        this.setUsername(username);
-        this.setPassword(password);
-    }
+    private String device;
 
     public String getUsername() {
         return this.username;
@@ -27,4 +21,13 @@ public class JwtRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
 }
