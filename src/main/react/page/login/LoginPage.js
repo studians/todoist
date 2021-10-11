@@ -27,14 +27,21 @@ function LoginPage() {
                 "Content-Type": "application/json"
             }
         }).then(response => {
-            console.log("response.data.accessToken: " + response.data.accessToken);
-            console.log("response.data.refreshToken: " + response.data.refreshToken);
+            localStorage.setItem("accessToken", response.data.accessToken);
+            localStorage.setItem("refreshToken", response.data.refreshToken);
             axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.accessToken;
             history.push('/');
         }).catch(e => {
             console.log(e);
             console.log("login failed!");
         });
+    }
+
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+        console.log('found: ' + accessToken);
+        // TODO validate and refresh
+        history.push('/');
     }
 
     return <div>
@@ -49,10 +56,12 @@ function LoginPage() {
         <div className="button-container">
             <button type="button" onClick={login} >Sign in</button>
         </div>
+        {/*
         <p></p>
         <div>
             New to Todoist? <a href="/register">Create an account.</a>
         </div>
+        */}
     </div>
 }
 

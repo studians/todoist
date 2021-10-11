@@ -9,10 +9,14 @@ import java.util.Collection;
 
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
-    private UserEntity userEntity;
+    private final UserEntity userEntity;
 
     public UserDetails(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
     public long getUserId() {
