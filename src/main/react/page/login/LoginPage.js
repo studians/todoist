@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import dotenv from "dotenv";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import Bowser from "bowser";
+import Cookies from "js-cookie";
 
 import './LoginPage.css';
+import Utils from "../../Utils";
 
 dotenv.config();
 
@@ -25,23 +27,31 @@ function LoginPage() {
         axios.post(process.env.REACT_APP_URI + "/authenticate", JSON.stringify(data), {
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            withCredentials: true
         }).then(response => {
-            localStorage.setItem("accessToken", response.data.accessToken);
-            localStorage.setItem("refreshToken", response.data.refreshToken);
-            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.accessToken;
-            history.push('/');
+            forward(response.data.accessToken);
         }).catch(e => {
             console.log(e);
             console.log("login failed!");
         });
     }
 
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-        console.log('found: ' + accessToken);
-        // TODO validate and refresh
-        history.push('/');
+    function forward(accessToken) {
+        Utils.setAccessToken(accessToken);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        history.push("/");
+    }
+
+    const refreshToken = Cookies.get("refreshToken");
+    if (refreshToken) {
+        axios.post(process.env.REACT_APP_URI + "/refresh", null, {
+            withCredentials: true
+        }).then(response => {
+            forward(response.data.accessToken);
+        }).catch(e => {
+            Cookies.remove("refreshToken");
+        });
     }
 
     return <div>
@@ -62,7 +72,7 @@ function LoginPage() {
             New to Todoist? <a href="/register">Create an account.</a>
         </div>
         */}
-    </div>
+    </div>;
 }
 
 export default LoginPage;

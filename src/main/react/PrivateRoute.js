@@ -1,19 +1,13 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import axios from "axios";
+import {Redirect, Route} from 'react-router-dom';
+import Utils from "./Utils";
 
 function PrivateRoute ({ component: Component, ...rest }) {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-        // TODO validate and refresh
-        axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
-    }
-
     return (
         <Route
             {...rest}
             render = {props =>
-                localStorage.getItem('accessToken') ? (
+                Utils.getAccessToken() ? (
                     <Component {...props} />
                 ) : (
                     <Redirect to={{

@@ -1,11 +1,11 @@
 import {useHistory} from "react-router-dom";
+import Cookies from "js-cookie";
 
 function LogoutPage() {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    Cookies.remove("refreshToken");
 
     const history = useHistory();
-    history.push('/login');
+    history.push("/login");
 
     return null;
 }

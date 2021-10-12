@@ -7,6 +7,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class Utils {
 
+    public static long getUserId() {
+        return getUserEntity().getId();
+    }
+
     public static UserEntity getUserEntity() {
         return getUserEntity(true);
     }
@@ -18,6 +22,11 @@ public class Utils {
             userEntity.setPassword(null);
         }
         return userEntity;
+    }
+
+    public static UserDetails getUserDetails() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return (UserDetails) securityContext.getAuthentication().getPrincipal();
     }
 
 }

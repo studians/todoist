@@ -51,11 +51,11 @@ public class JwtTokenUtil {
         return Jwts.parserBuilder().setSigningKey(secret.getBytes(StandardCharsets.UTF_8)).build().parseClaimsJws(token).getBody();
     }
 
-    private boolean expiredToken(String token) {
+    public boolean expiredToken(String token) {
         return getExpirationDateFromToken(token).before(new Date());
     }
 
-    private boolean notExpiredToken(String token) {
+    public boolean notExpiredToken(String token) {
         return !expiredToken(token);
     }
 

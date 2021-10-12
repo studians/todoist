@@ -9,4 +9,6 @@ public interface TokenRepository extends JpaRepository<TokenEntity, Long> {
 
     boolean existsByUserIdAndRefreshToken(Long userId, String refreshToken);
 
+    TokenEntity getByUserIdAndRefreshToken(Long userId, String refreshToken);
+
 }

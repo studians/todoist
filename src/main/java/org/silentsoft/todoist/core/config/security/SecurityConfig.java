@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/login").permitAll()
                     .antMatchers("/logout").permitAll()
                     .antMatchers("/authenticate").permitAll()
+                    .antMatchers("/refresh").permitAll()
                     .antMatchers("/h2-console/**").permitAll()
                     .anyRequest().authenticated()
                     //.and().csrf().ignoringAntMatchers("/h2-console/**")
