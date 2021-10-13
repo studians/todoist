@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import dotenv from "dotenv";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import Bowser from "bowser";
-import Cookies from "js-cookie";
 
 import './LoginPage.css';
 import Utils from "../../Utils";
@@ -19,6 +18,15 @@ function LoginPage() {
 
     const history = useHistory();
 
+    useEffect(() => {
+        Utils.refreshToken(response => {
+            Utils.startTokenRefreshTimer(response.data.expiry - 30, () => {
+                history.push("/logout");
+            });
+            history.push("/");
+        });
+    }, []);
+
     function login() {
         const bowser = Bowser.getParser(window.navigator.userAgent);
         const device = `${bowser.getOS().name} ${bowser.getOSVersion()} (${bowser.getBrowser().name} ${bowser.getBrowserVersion()})`;
@@ -30,27 +38,14 @@ function LoginPage() {
             },
             withCredentials: true
         }).then(response => {
-            forward(response.data.accessToken);
+            Utils.setAccessToken(response.data.accessToken);
+            Utils.startTokenRefreshTimer(response.data.expiry - 30, () => {
+                history.push("/logout");
+            });
+            history.push("/");
         }).catch(e => {
             console.log(e);
             console.log("login failed!");
-        });
-    }
-
-    function forward(accessToken) {
-        Utils.setAccessToken(accessToken);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-        history.push("/");
-    }
-
-    const refreshToken = Cookies.get("refreshToken");
-    if (refreshToken) {
-        axios.post(process.env.REACT_APP_URI + "/refresh", null, {
-            withCredentials: true
-        }).then(response => {
-            forward(response.data.accessToken);
-        }).catch(e => {
-            Cookies.remove("refreshToken");
         });
     }
 

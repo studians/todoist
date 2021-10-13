@@ -18,17 +18,17 @@ import java.util.function.Function;
 public class JwtTokenUtil {
 
     public enum TokenType {
-        ACCESS_TOKEN(1000 * 60 * 60),               // 1 hour
-        REFRESH_TOKEN(1000 * 60 * 60 * 24 * 7 * 2); // 1 week
+        ACCESS_TOKEN(1000 * 60 * 15),               // 15 minutes
+        REFRESH_TOKEN(1000 * 60 * 60 * 24 * 7 * 8); // 8  weeks
 
-        private long expirationTime;
+        private long expiry;
 
-        TokenType(long expirationTime) {
-            this.expirationTime = expirationTime;
+        TokenType(long expiry) {
+            this.expiry = expiry;
         }
 
-        public long getExpirationTime() {
-            return expirationTime;
+        public long getExpiry() {
+            return expiry;
         }
     }
 
@@ -41,6 +41,10 @@ public class JwtTokenUtil {
 
     public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
+    }
+
+    public long getExpiryFromNow(String token) {
+        return (getExpirationDateFromToken(token).getTime() - System.currentTimeMillis()) / 1000;
     }
 
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
@@ -72,7 +76,7 @@ public class JwtTokenUtil {
                    .setClaims(claims)
                    .setSubject(subject)
                    .setIssuedAt(new Date(System.currentTimeMillis()))
-                   .setExpiration(new Date(System.currentTimeMillis() + tokenType.getExpirationTime()))
+                   .setExpiration(new Date(System.currentTimeMillis() + tokenType.getExpiry()))
                    .signWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS512)
                    .compact();
     }

@@ -60,7 +60,7 @@ public class JwtAuthenticationController {
         }
         setRefreshTokenToCookie(refreshToken, response);
 
-        return ResponseEntity.ok(new JwtResponse(accessToken));
+        return ResponseEntity.ok(new JwtResponse(accessToken, jwtTokenUtil.getExpiryFromNow(accessToken)));
     }
 
     @RequestMapping(value = "/refresh", method = RequestMethod.POST)
@@ -71,11 +71,8 @@ public class JwtAuthenticationController {
             long userId = userDetails.getUserId();
             TokenEntity tokenEntity = tokenRepository.getByUserIdAndRefreshToken(userId, refreshToken);
             if (tokenEntity != null) {
-                String storedRefreshToken = tokenEntity.getRefreshToken();
-                if (storedRefreshToken.equals(refreshToken)) {
-                    String newAccessToken = jwtTokenUtil.generateAccessToken(userDetails);
-                    return ResponseEntity.ok(new JwtResponse(newAccessToken));
-                }
+                String newAccessToken = jwtTokenUtil.generateAccessToken(userDetails);
+                return ResponseEntity.ok(new JwtResponse(newAccessToken, jwtTokenUtil.getExpiryFromNow(newAccessToken)));
             }
         }
 
