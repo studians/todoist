@@ -15,6 +15,11 @@ function LoginPage() {
 
     const [password, setPassword] = useState('');
     const handlePasswordChange = (e) => setPassword(e.target.value);
+    const handlePasswordKeyDown = (e) => {
+        if (e.key == "Enter") {
+            login();
+        }
+    };
 
     const history = useHistory();
 
@@ -56,7 +61,7 @@ function LoginPage() {
         </div>
         <div className="field-container">
             <label>Password</label>
-            <input type="password" name="password" value={password} onChange={handlePasswordChange} />
+            <input type="password" name="password" value={password} onChange={handlePasswordChange} onKeyDown={handlePasswordKeyDown} />
         </div>
         <div className="button-container">
             <button type="button" onClick={login} >Sign in</button>
