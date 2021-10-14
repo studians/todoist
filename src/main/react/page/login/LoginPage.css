@@ -1,3 +1,11 @@
+.login-container {
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 50px);
+    transform: translateX(-50%) translateY(-50%);
+    display: grid;
+}
+
 .field-container {
     padding-bottom: 0.75em;
 }
@@ -22,6 +30,10 @@
     width: 100%;
     border-radius: 0.3em;
     border-width: 0px;
-    background: #db4c4f;
+    background-color: #e44332;
     height: 2.5em;
+    color: white;
+}
+* > button {
+    cursor: pointer;
 }

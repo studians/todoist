@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from "react";
 import dotenv from "dotenv";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import Bowser from "bowser";
+import { Icon } from '@iconify/react';
 
-import './LoginPage.css';
+import "./LoginPage.css";
 import Utils from "../../Utils";
 
 dotenv.config();
@@ -54,7 +55,8 @@ function LoginPage() {
         });
     }
 
-    return <div>
+    return <div className="login-container">
+        <Icon icon="logos:todoist" width="196" style={{ margin: "auto auto 3em auto" }} />
         <div className="field-container">
             <label>Username or email address</label>
             <input type="text" name="username" value={username} onChange={handleUsernameChange} />

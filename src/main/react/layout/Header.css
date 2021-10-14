@@ -1,0 +1,35 @@
+.header-container {
+    height: 36px;
+    display: flex;
+    background-color: #e44332;
+    position: relative;
+}
+
+.left-area {
+    margin-left: 40px;
+}
+
+.todoist-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.center-area {
+    width: 100%;
+}
+
+.right-area {
+    width: 80px;
+    margin-right: 40px;
+}
+
+.logout-button {
+    width: 80px;
+    background-color: transparent;
+    padding: 0;
+    height: 1.5em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
