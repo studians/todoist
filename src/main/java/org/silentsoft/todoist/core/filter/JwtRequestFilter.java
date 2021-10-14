@@ -37,7 +37,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (requestTokenHeader != null && requestTokenHeader.startsWith(BEARER_PREFIX)) {
             jwtToken = requestTokenHeader.substring(BEARER_PREFIX.length());
-            username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+            if ("".equals(jwtToken) == false) {
+                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
