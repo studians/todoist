@@ -1,5 +1,6 @@
 package org.silentsoft.todoist.core.filter;
 
+import io.jsonwebtoken.lang.Strings;
 import org.silentsoft.todoist.core.userdetails.UserDetailsService;
 import org.silentsoft.todoist.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (requestTokenHeader != null && requestTokenHeader.startsWith(BEARER_PREFIX)) {
             jwtToken = requestTokenHeader.substring(BEARER_PREFIX.length());
-            if ("".equals(jwtToken) == false) {
-                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+            if (Strings.hasLength(jwtToken) && Strings.countOccurrencesOf(jwtToken, ".") == 2) {
+                try {
+                    username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                } catch (Throwable e) {
+
+                }
             }
         }
 
