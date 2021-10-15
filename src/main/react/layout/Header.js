@@ -6,11 +6,10 @@ import TodoistIcon from "./todoist-icon.svg"
 
 function Header() {
     return <div className="header-container">
-        <div className="left-area">
-            <img className="todoist-icon" src={TodoistIcon} width="24" />
+        <div className="flex-center">
+            <Link to="/" style={{ height: "24px" }} ><img src={TodoistIcon} width="24" /></Link>
         </div>
-        <div className="center-area"/>
-        <div className="right-area">
+        <div className="flex-center">
             <Link to="/logout"><button type="button" className="logout-button">Sign out</button></Link>
         </div>
     </div>;
