@@ -7,7 +7,7 @@ function Sidebar() {
     return <div className="sidebar-container">
         <div className="menuitem menuitem-selected">
             <ul>
-                <li><FontAwesomeIcon icon={faInbox} style={{"font-size": "21px"}} /><span>Inbox</span></li>
+                <li><FontAwesomeIcon icon={faInbox} style={{"fontSize": "21px"}} /><span>Inbox</span></li>
             </ul>
         </div>
     </div>;
