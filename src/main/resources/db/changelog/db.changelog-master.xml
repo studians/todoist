@@ -15,8 +15,10 @@
     <!-- Create -->
     <include file="/db/changelog/users/create/users.xml"/>
     <include file="/db/changelog/tokens/create/tokens.xml"/>
+    <include file="/db/changelog/tasks/create/tasks.xml"/>
 
     <!-- Save -->
     <include file="/db/changelog/users/save/users.xml"/>
+    <include file="/db/changelog/tasks/save/tasks.xml"/>
 
 </databaseChangeLog>
