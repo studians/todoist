@@ -1,0 +1,10 @@
+.task-container {
+    display: flex;
+    margin-left: -25px;
+    margin-bottom: 10px;
+}
+
+.task-circle-checkbox {
+    margin-right: 10px;
+    cursor: pointer;
+}

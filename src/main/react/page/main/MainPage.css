@@ -2,6 +2,11 @@
     display: flex;
 }
 
+.tasks-container {
+    margin: 0 auto;
+    width: 800px;
+}
+
 .post-button-container {
     width: 40px;
     height: 40px;
