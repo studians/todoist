@@ -44,10 +44,12 @@ function MainPage() {
         <div className="main-container">
             <Sidebar/>
             <div className="tasks-container">
-                <h2>Inbox</h2>
-                {tasks.map(task => {
-                    return <Task key={task.id} id={task.id} title={task.title}/>;
-                })}
+                <div className="tasks-view">
+                    <h2>Inbox</h2>
+                    {tasks.map(task => {
+                        return <Task key={task.id} id={task.id} title={task.title}/>;
+                    })}
+                </div>
             </div>
             <Popup ref={ref} trigger={<div className="post-button-container flex-center">
                 <FontAwesomeIcon icon={faPencilAlt} className="post-button"/>
