@@ -22,3 +22,16 @@
 .post-button {
     margin-left: 12px;
 }
+
+.post-popup-field-container {
+    padding-bottom: 0.5em;
+}
+
+.post-popup-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-popup-button {
+    width: 100px;
+}

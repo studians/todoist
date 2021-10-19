@@ -11,7 +11,6 @@ import "reactjs-popup/dist/index.css"
 import Task from "../../component/Task";
 
 function MainPage() {
-    const [user, setUser] = useState("");
     const [tasks, setTasks] = useState([]);
 
     const ref = useRef();
@@ -24,19 +23,20 @@ function MainPage() {
     };
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_URI + "/user").then(response => {
-            setUser(response.data);
-        });
-
-        axios.get(process.env.REACT_APP_URI + "/tasks").then(response => {
-            console.log(response.data);
-            setTasks(response.data);
-        });
+        fetch();
     }, []);
 
+    function fetch() {
+        axios.get(process.env.REACT_APP_URI + "/tasks").then(response => {
+            setTasks(response.data);
+        });
+    }
+
     function post() {
-        console.log(title);
-        ref.current.close();
+        axios.post(process.env.REACT_APP_URI + "/task", {"title": title}).then(response => {
+            fetch();
+            ref.current.close();
+        });
     }
 
     return <div>
@@ -52,13 +52,13 @@ function MainPage() {
             <Popup ref={ref} trigger={<div className="post-button-container flex-center">
                 <FontAwesomeIcon icon={faPencilAlt} className="post-button"/>
             </div>} modal>
-                <div className="post-popup-container">
-                    <div className="field-container">
+                <div>
+                    <div className="post-popup-field-container">
                         <label>Task title</label>
                         <input type="text" onChange={handleTitleChange} onKeyDown={handleTitleKeyDown} />
                     </div>
-                    <div className="button-container">
-                        <button type="button" onClick={post} >Create</button>
+                    <div className="post-popup-button-container">
+                        <button type="button" className="post-popup-button" onClick={post} >Create</button>
                     </div>
                 </div>
             </Popup>
